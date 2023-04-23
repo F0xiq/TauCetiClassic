@@ -250,13 +250,21 @@
 	for(var/obj/machinery/computer/rdconsole/RD as anything in global.RDcomputer_list)
 		if(RD.id == DEFAULT_SCIENCE_CONSOLE_ID)
 			var/saved_interaction_score = RD.files.experiments.saved_best_score[inter_type]
+			autosay("saved_interaction_score: [saved_interaction_score]", name ,"Science", freq = radiochannels["Science"])
 			var/saved_earned_points = max(RD.files.experiments.earned_score[inter_type], 1)
+			autosay("saved_earned_points: [saved_earned_points]", name ,"Science", freq = radiochannels["Science"])
 
 			var/added_score = max(0, score - saved_interaction_score)
+			autosay("added_score: [added_score]", name ,"Science", freq = radiochannels["Science"])
 			var/already_earned_score = min(saved_interaction_score, score)
+			autosay("already_earned_score: [already_earned_score]", name ,"Science", freq = radiochannels["Science"])
 			var/repetition_cap = max(score, saved_interaction_score) * RD.files.experiments.cap_coeff * new_score_coeff
+			autosay("repetition_cap: [repetition_cap]", name ,"Science", freq = radiochannels["Science"])
 
 			var/softcap_coeff = max(repetition_cap / saved_earned_points - 1, 0)
+			autosay("softcap_coeff: [softcap_coeff]", name ,"Science", freq = radiochannels["Science"])
+			autosay("new_score_coeff: [new_score_coeff]", name ,"Science", freq = radiochannels["Science"])
+			autosay("repeat_score_coeff: [repeat_score_coeff]", name ,"Science", freq = radiochannels["Science"])
 
 			calculated_research_points = added_score * new_score_coeff + min(already_earned_score * round(repeat_score_coeff * softcap_coeff), repetition_cap - saved_earned_points)
 
