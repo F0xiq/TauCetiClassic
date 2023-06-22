@@ -59,8 +59,6 @@
 	return TRUE
 
 /datum/faction/revolution/check_win()
-	var/aboba = TRUE
-	if(aboba) return FALSE
 	var/win = IsSuccessful()
 	if(config.continous_rounds)
 		if(win && SSshuttle)
@@ -96,7 +94,7 @@
 	return dat
 
 /datum/faction/revolution/latespawn(mob/M)
-	if(M.mind.assigned_role in command_positions)
+	if(M.mind.assigned_role in heads_positions)
 		log_debug("Adding head kill/capture/convert objective for [M.mind.name]")
 
 		var/datum/objective/target/rp_rev/rev_obj = AppendObjective(/datum/objective/target/rp_rev, TRUE)
