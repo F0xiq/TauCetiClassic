@@ -2,11 +2,12 @@
 #define SAVEFILE_VERSION_MIN 8
 
 //This is the current version, anything below this will attempt to update (if it's not obsolete)
-#define SAVEFILE_VERSION_MAX 44
+
+#define SAVEFILE_VERSION_MAX 48
 
 //For repetitive updates, should be the same or below SAVEFILE_VERSION_MAX
 //set this to (current SAVEFILE_VERSION_MAX)+1 when you need to update:
-#define SAVEFILE_VERSION_SPECIES_JOBS 41 // job preferences after breaking changes to any /datum/job/
+#define SAVEFILE_VERSION_SPECIES_JOBS 48 // job preferences after breaking changes to any /datum/job/
 #define SAVEFILE_VERSION_QUIRKS 30 // quirks preferences after breaking changes to any /datum/quirk/
 //breaking changes is when you remove any existing quirk/job or change their restrictions
 //Don't forget to bump SAVEFILE_VERSION_MAX too
@@ -247,13 +248,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 				ignore_question |= IGNORE_LARVA
 				S["ignore_question"] << ignore_question
 
-	// if you change a values in global.special_roles_ignore_question, you can copypaste this code
-	if(current_version < 42)
-		if(ignore_question && ignore_question.len)
-			var/list/diff = ignore_question - global.full_ignore_question
-			if(diff.len)
-				S["ignore_question"] << ignore_question - diff
-
 	if(current_version < 42)
 		if(ROLE_NINJA in be_role)
 			be_role -= ROLE_NINJA
@@ -261,6 +255,15 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 			be_role -= ROLE_ABDUCTOR
 		S["be_role"] << be_role
 
+	// if you change a values in global.special_roles_ignore_question, you can copypaste this code
+	if(current_version < 45)
+		if(ignore_question && ignore_question.len)
+			var/list/diff = ignore_question - global.full_ignore_question
+			if(diff.len)
+				S["ignore_question"] << ignore_question - diff
+
+	if(current_version < 48)
+		S["b_type"] << null
 //
 /datum/preferences/proc/repetitive_updates_character(current_version, savefile/S)
 
@@ -362,6 +365,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["glowlevel"]         >> glowlevel
 	S["lampsexposure"]     >> lampsexposure
 	S["lampsglare"]        >> lampsglare
+	S["eye_blur_effect"]   >> eye_blur_effect
 	S["auto_fit_viewport"] >> auto_fit_viewport
 	S["lobbyanimation"]    >> lobbyanimation
 	S["tooltip"]           >> tooltip
@@ -418,6 +422,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	parallax		= sanitize_integer(parallax, PARALLAX_INSANE, PARALLAX_DISABLE, PARALLAX_HIGH)
 	ambientocclusion	= sanitize_integer(ambientocclusion, 0, 1, initial(ambientocclusion))
 	glowlevel		= sanitize_integer(glowlevel, GLOW_HIGH, GLOW_DISABLE, initial(glowlevel))
+	eye_blur_effect = sanitize_integer(eye_blur_effect, 0, 1, initial(eye_blur_effect))
 	lampsexposure	= sanitize_integer(lampsexposure, 0, 1, initial(lampsexposure))
 	lampsglare		= sanitize_integer(lampsglare, 0, 1, initial(lampsglare))
 	lobbyanimation	= sanitize_integer(lobbyanimation, 0, 1, initial(lobbyanimation))
@@ -490,6 +495,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["parallax"]          << parallax
 	S["ambientocclusion"]  << ambientocclusion
 	S["glowlevel"]         << glowlevel
+	S["eye_blur_effect"]   << eye_blur_effect
 	S["lampsexposure"]     << lampsexposure
 	S["lampsglare"]        << lampsglare
 	S["lobbyanimation"]    << lobbyanimation
@@ -539,6 +545,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["real_name"]             >> real_name
 	S["name_is_always_random"] >> be_random_name
 	S["gender"]                >> gender
+	S["neuter_gender_voice"]   >> neuter_gender_voice
 	S["age"]                   >> age
 	S["height"]                >> height
 	S["species"]               >> species
@@ -571,7 +578,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["undershirt"]        >> undershirt
 	S["socks"]             >> socks
 	S["backbag"]           >> backbag
-	S["b_type"]            >> b_type
 	S["use_skirt"]         >> use_skirt
 
 	//Load prefs
@@ -629,7 +635,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	if(!gear) gear = list()
 	if(!custom_items) custom_items = list()
 	be_random_name	= sanitize_integer(be_random_name, 0, 1, initial(be_random_name))
-	gender			= sanitize_gender(gender)
+	gender			= sanitize_gender(gender, species_obj.flags[NO_GENDERS])
 	age				= sanitize_integer(age, species_obj.min_age, species_obj.max_age, initial(age))
 	height			= sanitize_inlist(height, heights_list, initial(height))
 	r_hair			= sanitize_integer(r_hair, 0, 255, initial(r_hair))
@@ -655,8 +661,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	undershirt		= sanitize_integer(undershirt, 1, undershirt_t.len, initial(undershirt))
 	socks			= sanitize_integer(socks, 1, socks_t.len, initial(socks))
 	backbag			= sanitize_integer(backbag, 1, backbaglist.len, initial(backbag))
-	b_type			= sanitize_text(b_type, initial(b_type))
 	alternate_option = sanitize_integer(alternate_option, 0, 2, initial(alternate_option))
+	neuter_gender_voice = sanitize_gender_voice(neuter_gender_voice)
 
 	all_quirks = SANITIZE_LIST(all_quirks)
 	positive_quirks = SANITIZE_LIST(positive_quirks)
@@ -735,6 +741,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["real_name"]             << real_name
 	S["name_is_always_random"] << be_random_name
 	S["gender"]                << gender
+	S["neuter_gender_voice"]   << neuter_gender_voice
 	S["age"]                   << age
 	S["height"]                << height
 	S["species"]               << species
@@ -765,7 +772,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["undershirt"]            << undershirt
 	S["socks"]                 << socks
 	S["backbag"]               << backbag
-	S["b_type"]                << b_type
 	S["use_skirt"]             << use_skirt
 	//Write prefs
 	S["alternate_option"]      << alternate_option

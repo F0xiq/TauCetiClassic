@@ -349,7 +349,7 @@
 				M.flash_eyes()
 				if(prob(50))
 					M.Stun(5)
-			M.apply_effect(25, IRRADIATE)
+			irradiate_one_mob(M, 25)
 		for(var/obj/item/device/analyzer/counter as anything in global.geiger_items_list)
 			var/distance_rad_signal = get_dist(counter, src)
 			var/rads = 25 * sqrt(1 / (distance_rad_signal + 1))
@@ -716,20 +716,6 @@
 	dug = TRUE
 	icon_plating = "asteroid_dug"
 	icon_state = "asteroid_dug"
-
-/turf/simulated/floor/plating/airless/asteroid/Entered(atom/movable/M)
-	..()
-	if(isrobot(M))
-		var/mob/living/silicon/robot/R = M
-		if(istype(R.module, /obj/item/weapon/robot_module/miner))
-			if(istype(R.module_state_1,/obj/item/weapon/storage/bag/ore))
-				attackby(R.module_state_1,R)
-			else if(istype(R.module_state_2,/obj/item/weapon/storage/bag/ore))
-				attackby(R.module_state_2,R)
-			else if(istype(R.module_state_3,/obj/item/weapon/storage/bag/ore))
-				attackby(R.module_state_3,R)
-			else
-				return
 
 #undef MIN_TUNNEL_LENGTH
 #undef MAX_TUNNEL_LENGTH
