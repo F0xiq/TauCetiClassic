@@ -47,7 +47,6 @@
 
 	var/datum/job/assigned_job
 
-	var/list/special_verbs = list()
 	var/list/antag_roles = list()		// All the antag roles we have.
 
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
@@ -636,7 +635,7 @@
 		while(count > 0 && candidates.len)
 			var/mob/M = pick(candidates)
 			candidates -= M
-			if(!M.mind)
+			if(!M.mind || !M.client.prefs.be_role.Find(role_req))
 				continue
 
 			if(isobserver(M))
@@ -652,7 +651,7 @@
 		while(count > 0 && candidates.len)
 			var/mob/M = pick(candidates)
 			candidates -= M
-			if(!M.mind)
+			if(!M.mind || !M.client.prefs.be_role.Find(role_req))
 				continue
 
 			if(isobserver(M))

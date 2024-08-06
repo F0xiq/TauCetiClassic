@@ -10,7 +10,7 @@
 	name = "Asteroid - Artifact"
 	icon_state = "cave"
 	requires_power = 0
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	dynamic_lighting = TRUE
 
 /area/asteroid/mine/explored
 	name = "Mine"
@@ -145,6 +145,13 @@
 	looped_ambience = 'sound/ambience/loop_space.ogg'
 	sound_environment = SOUND_AREA_STATION_HALLWAY
 	outdoors = FALSE
+
+/area/asteroid/mine/abandoned/Entered(atom/movable/A, atom/OldLoc)
+	. = ..()
+	if(!isliving(A))
+		return
+	for(var/obj/effect/spawner/mob_spawn/M in src)
+		M.creatMob()
 
 /area/asteroid/mine/living_quarters
 	name = "Mining Station Port Wing"

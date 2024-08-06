@@ -39,18 +39,6 @@
 			H.update_sight()
 			update_item_actions()
 
-/obj/item/clothing/glasses/equipped(mob/user, slot)
-	. = ..()
-	if(slot == SLOT_GLASSES)
-		if(prescription)
-			user.clear_fullscreen("nearsighted")
-
-/obj/item/clothing/glasses/dropped(mob/user)
-	. = ..()
-	if(prescription)
-		if(HAS_TRAIT(user, TRAIT_NEARSIGHT))
-			user.overlay_fullscreen("nearsighted", /atom/movable/screen/fullscreen/impaired, 1)
-
 /obj/item/clothing/glasses/meson
 	name = "optical meson scanner"
 	desc = "Used for seeing walls, floors, and stuff through anything."
@@ -60,7 +48,7 @@
 	toggleable = TRUE
 	sightglassesmod = "meson"
 	vision_flags = SEE_TURFS
-	lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	item_action_types = list(/datum/action/item_action/hands_free/toggle_goggles)
 
 /datum/action/item_action/hands_free/toggle_goggles
@@ -87,6 +75,7 @@
 	name = "night vision goggles"
 	desc = "You can totally see in the dark now!"
 	icon_state = "night"
+	item_state_world = "night_w"
 	item_state = "glasses"
 	origin_tech = "magnets=2"
 	darkness_view = 7
@@ -287,7 +276,7 @@
 	activation_sound = 'sound/effects/glasses_switch.ogg'
 	sightglassesmod  = "hos"
 	darkness_view = 7
-	lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	flash_protection = FLASHES_AMPLIFIER
 	flash_protection_slots = list(SLOT_GLASSES)
 	item_action_types = list(/datum/action/item_action/switch_shades_mode)

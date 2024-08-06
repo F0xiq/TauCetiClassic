@@ -285,6 +285,14 @@
 	M.adjustToxLoss(6 * REM) // Let's just say it's thrice as poisonous.
 	return FALSE
 
+/datum/reagent/dexalinp/on_serpentid_digest(mob/living/M)
+	if(ishuman(M))
+		var/mob/living/carbon/human/S = M
+		if(S.is_bruised_organ(O_LIVER))
+			return FALSE
+	M.adjustOxyLoss(-M.getOxyLoss())
+	return TRUE
+
 /datum/reagent/tricordrazine
 	name = "Tricordrazine"
 	id = "tricordrazine"
@@ -566,29 +574,12 @@
 	..()
 	M.heal_bodypart_damage(2 * REM, 0)
 
-/datum/reagent/xenojelly_n // only for alien nest
-	name = "Natural xenojelly"
-	id = "xenojelly_n"
-	description = "Natural xenomorph jelly is released only if the victim hits the nest"
-	reagent_state = LIQUID
-	color = "#3f6d3f"
-	taste_message = null
-	restrict_species = list (IPC, DIONA, VOX)
-
-/datum/reagent/xenojelly_n/on_general_digest(mob/living/M)
-	..()
-	M.heal_bodypart_damage(35, 10)
-	M.adjustToxLoss(-10)
-	M.adjustOxyLoss(-20)
-	M.adjustHalLoss(-25)
-	M.adjustFireLoss(-20)
-
 /datum/reagent/xenojelly_un
 	name = "Unnatural xenojelly"
 	id = "xenojelly_un"
 	description  = "Usually, this jelly is found in the meat of xenomorphs, but it is less useful than natural."
 	reagent_state = LIQUID
-	color = "#5ea95d2b"
+	color = "#457a45"
 	custom_metabolism = 2
 	overdose = REAGENTS_OVERDOSE / 2
 	taste_message = null

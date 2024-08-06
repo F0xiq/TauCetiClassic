@@ -19,10 +19,19 @@
 	throw_range = 20
 	force = 0
 
-
 /*
  * Balloons
  */
+
+/obj/item/toy/balloon/arrest
+	name = "arreyst balloon"
+	desc = "A half inflated balloon about a boyband named Arreyst that was popular about ten years ago, famous for making fun of red jumpsuits as unfashionable."
+	icon = 'icons/obj/balloons.dmi'
+	icon_state = "arrestballoon"
+	item_state = "arrestballoon"
+	lefthand_file = 'icons/mob/inhands/balloons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/balloons_righthand.dmi'
+
 /obj/item/toy/balloon
 	name = "water balloon"
 	desc = "A translucent balloon. There's nothing in it."
@@ -176,7 +185,7 @@
 		add_fingerprint(user)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
-			if(H.job == "Clown")
+			if(H.job == "Clown" || stage_of_effect == 2)
 				to_chat(user, "<span class = 'notice'>You concentrate your power into a one big bad joke and make the [src] much stronger.</span>")
 				on = TRUE
 
@@ -1057,6 +1066,25 @@
 	icon_state = "warden"
 	toysay = "Seventeen minutes for coughing at an officer!"
 
+/obj/item/toy/figure/iaa
+	name = "Internal Affairs Agent action figure"
+	icon_state = "iaa"
+	toysay = "I'll make a report!"
+
+/obj/item/toy/figure/blueofficer
+	name = "Blueshield Officer"
+	icon_state = "blueofficer"
+	toysay = "On guard of the heads!"
+
+/obj/item/toy/figure/xenobio
+	name = "Xenobiologist"
+	icon_state = "xenobio"
+	toysay = "Ghost, come here, there's a rune for summoning a admantive golem!"
+
+/obj/item/toy/figure/xenoarcheolog
+	name = "Xenoarcheologist"
+	icon_state = "xenoarcheolog"
+	toysay = "Excavation, excavation, death!"
 /*
 Owl & Griffin toys
 */
@@ -1751,6 +1779,10 @@ Owl & Griffin toys
 							/obj/item/toy/figure/secofficer					= 1,
 							/obj/item/toy/figure/virologist					= 1,
 							/obj/item/toy/figure/warden						= 1,
+							/obj/item/toy/figure/iaa						= 1,
+							/obj/item/toy/figure/blueofficer				= 1,
+							/obj/item/toy/figure/xenobio					= 1,
+							/obj/item/toy/figure/xenoarcheolog				= 1,
 							/obj/item/toy/prize/poly/polyclassic			= 1,
 							/obj/item/toy/prize/poly/polypink				= 1,
 							/obj/item/toy/prize/poly/polydark				= 1,
