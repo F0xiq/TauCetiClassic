@@ -51,11 +51,15 @@ ADD_TO_GLOBAL_LIST(/obj/machinery/computer/cargo, cargo_consoles)
 	else
 		dat += "<HR><B>Supply shuttle Location:</B> [SSshuttle.moving ? "Moving to station ([SSshuttle.eta] Mins.)":SSshuttle.at_station ? "Station":"Dock"]<BR>"
 		if(!requestonly)
+			if(SSshuttle.mail_orders.len)
+				dat += "New mail for the station crew awaits at the supply dock!<BR>"
 			dat += "<HR>Cargo Dep credits: [global.cargo_account.money]$<BR>"
 			dat += "Cargo Dep Number: [global.cargo_account.account_number]<BR>\n<BR>"
 			dat += "Export tax: [SSeconomy.tax_cargo_export]%<BR>"
 			dat += "<HR>'[CARGOSHOPNAME]' delivery cost: <A href='byond://?src=\ref[src];online_shop_delivery_cost=1'>[global.online_shop_delivery_cost*100]</A>%<BR>"
-			dat += "'[CARGOSHOPNAME]' discount: <A href='byond://?src=\ref[src];online_shop_discount=1'>[global.online_shop_discount*100]</A>%<BR>\n<BR>"
+			dat += "'[CARGOSHOPNAME]' discount: <A href='byond://?src=\ref[src];online_shop_discount=1'>[global.online_shop_discount * 100]</A>%<BR>"
+			dat += "'[CARGOSHOPNAME]' advertisements: <A href='byond://?src=\ref[src];online_shop_ads=1'>[global.online_shop_ads ? "Yes" : "No"]</A><BR>"
+			dat += "'[CARGOSHOPNAME]' referrer revenue: <A href='byond://?src=\ref[src];online_shop_referrer=1'>[global.online_shop_referrer_revenue * 100]</A>% of delivery cost<BR>\n<BR>"
 			dat += "'[CARGOSHOPNAME]' profits: [global.online_shop_profits]$<BR>\n<BR>"
 		else
 			dat += "<HR>'[CARGOSHOPNAME]' delivery cost: [global.online_shop_delivery_cost*100]%<BR>\n<BR>"
@@ -83,16 +87,19 @@ ADD_TO_GLOBAL_LIST(/obj/machinery/computer/cargo, cargo_consoles)
 	if(href_list["send"])
 		if(!SSshuttle.can_move())
 			temp = "[safety_warning]<BR><BR><A href='byond://?src=\ref[src];mainmenu=1'>OK</A>"
+			playsound(src, 'sound/machines/cargo_shuttle_error.ogg', VOL_EFFECTS_MASTER, vary = FALSE)
 		else if(SSshuttle.at_station)
 			SSshuttle.moving = -1
 			SSshuttle.sell()
 			SSshuttle.send()
 			temp = "The supply shuttle has departed.<BR><BR><A href='byond://?src=\ref[src];mainmenu=1'>OK</A>"
+			playsound(src, 'sound/machines/cargo_shuttle_send.ogg', VOL_EFFECTS_MASTER, vary = FALSE)
 		else
 			SSshuttle.moving = 1
 			SSshuttle.buy()
 			SSshuttle.set_eta_timeofday()
 			temp = "The supply shuttle has been called and will arrive in [round(SSshuttle.movetime/600,1)] minutes.<BR><BR><A href='byond://?src=\ref[src];mainmenu=1'>OK</A>"
+			playsound(src, 'sound/machines/cargo_shuttle_call.ogg', VOL_EFFECTS_MASTER, vary = FALSE)
 			post_signal("supply")
 
 	if(href_list["order"])
@@ -210,19 +217,29 @@ ADD_TO_GLOBAL_LIST(/obj/machinery/computer/cargo, cargo_consoles)
 				else
 					temp = "Not enough credits.<BR>"
 					temp += "<BR><A href='byond://?src=\ref[src];viewrequests=1'>Back</A> <A href='byond://?src=\ref[src];mainmenu=1'>Main Menu</A>"
+					playsound(src, 'sound/machines/roboboop.ogg', VOL_EFFECTS_MASTER, vary = FALSE)
 				break
 
 	if(href_list["online_shop_delivery_cost"])
-		var/cost = input("Delivery Cost: 0% - 100%", "[global.online_shop_delivery_cost]") as num
+		var/cost = input("Delivery Cost: 0% - 100%", "[global.online_shop_delivery_cost * 100]") as num
 		cost = round(clamp(cost, 0, 100))
 
-		global.online_shop_delivery_cost = cost/100
+		global.online_shop_delivery_cost = cost / 100
 
 	if(href_list["online_shop_discount"])
-		var/discount = input("Discount: 0% - 100%", "[global.online_shop_discount]") as num
+		var/discount = input("Discount: 0% - 100%", "[global.online_shop_discount * 100]") as num
 		discount = round(clamp(discount, 0, 100))
 
-		global.online_shop_discount = discount/100
+		global.online_shop_discount = discount / 100
+
+	if(href_list["online_shop_ads"])
+		global.online_shop_ads = !global.online_shop_ads
+
+	if(href_list["online_shop_referrer"])
+		var/referrer_revenue = input("Referrer payments 0% - 100% of delivery cost:", "[global.online_shop_referrer_revenue * 100]") as num
+		referrer_revenue = round(clamp(referrer_revenue, 0, 100))
+
+		global.online_shop_referrer_revenue = referrer_revenue / 100
 
 	if(href_list["vieworders"])
 		temp = "Current approved orders: <BR><BR>"

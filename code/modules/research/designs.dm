@@ -1569,6 +1569,15 @@ other types of metals and chemistry for reagents).
 	build_path = /obj/item/weapon/circuitboard/minefab
 	category = list("Machine")
 
+/datum/design/microscope
+	name = "Microscope Board"
+	desc = "The circuit board for a forensics microscope."
+	id = "microscope"
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/microscope
+	category = list("Machine")
+
 /////////////////////////////////////////
 ////////////Power Stuff//////////////////
 /////////////////////////////////////////
@@ -1875,6 +1884,15 @@ other types of metals and chemistry for reagents).
 	build_path = /obj/item/device/sensor_device
 	category = list("Support")
 
+/datum/design/detective_scanner
+	name = "Forensic Scanner"
+	desc = "Used to remotely scan objects and biomass for DNA and fingerprints. Can print a report of the findings."
+	id = "detective_scanner"
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 7000, MAT_GLASS = 7000)
+	build_path = /obj/item/device/detective_scanner
+	category = list("Equipment")
+
 /datum/design/scalpel_laser1
 	name = "Basic Laser Scalpel"
 	desc = "A scalpel augmented with a directed laser, for more precise cutting without blood entering the field.  This one looks basic and could be improved."
@@ -1952,12 +1970,12 @@ other types of metals and chemistry for reagents).
 	category = list("Weapons")
 
 /datum/design/laserrifle
-	name = "Laser Rifle"
+	name = "Extended-Capacity Laser Rifle"
 	desc = "An energy weapon with concentrated energy bolts."
 	id = "laserrifle"
 	build_type = PROTOLATHE
 	materials = list (MAT_METAL = 8000, MAT_GLASS = 1000, MAT_URANIUM = 200)
-	build_path = /obj/item/weapon/gun/energy/laser
+	build_path = /obj/item/weapon/gun/energy/laser/big
 	category = list("Weapons")
 
 /datum/design/laserpractice

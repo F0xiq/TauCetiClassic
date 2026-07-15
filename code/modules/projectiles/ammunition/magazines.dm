@@ -33,6 +33,9 @@
 
 /obj/item/ammo_box/magazine/internal/cylinder/rus357/atom_init()
 	. = ..()
+	for(var/obj/item/ammo_casing/AC as anything in stored_ammo)
+		qdel(AC)
+	stored_ammo = list()
 	stored_ammo += new ammo_type(src)
 
 /obj/item/ammo_box/magazine/internal/cylinder/rev38
@@ -358,7 +361,7 @@
 	origin_tech = "combat=1"
 	ammo_type = /obj/item/ammo_casing/c38
 	caliber = "38"
-	max_ammo = 20
+	max_ammo = 30
 	multiple_sprites = TWO_STATES
 	overlay = "l13-mag"
 
@@ -460,6 +463,8 @@
 	name = "A28 magazine (5.56mm)"
 	cases = list("магазин А28 (5.56мм)", "магазина А28 (5.56мм)", "магазину А28 (5.56мм)", "магазин А28 (5.56мм)", "магазином А28 (5.56мм)", "магазине А28 (5.56мм)")
 	icon_state = "a28_mag"
+	item_state_inventory = "a28_mag"
+	item_state_world = "a28_mag_w"
 	origin_tech = "combat=3"
 	ammo_type = /obj/item/ammo_casing/a556
 	caliber = "5.56mm"
@@ -472,12 +477,17 @@
 	cases = list("магазин А28 (5.56мм Зажигательный)", "магазина А28 (5.56мм Зажигательный)", "магазину А28 (5.56мм Зажигательный)", "магазин А28 (5.56мм Зажигательный)", "магазином А28 (5.56мм Зажигательный)", "магазине А28 (5.56мм Зажигательный)")
 	ammo_type = /obj/item/ammo_casing/a556i
 	icon_state = "a28_mag_inc"
+	item_state_inventory = "a28_mag_inc"
+	item_state_world = "a28_mag_inc_w"
 	overlay = "a28-mag-i"
 
 /obj/item/ammo_box/magazine/a28/nonlethal
-	name = "A28 magazine (.556NL)"
+	name = "A28 magazine (5.56mm NL)"
 	cases = list("магазин А28 (5.56мм НЛ)", "магазина А28 (5.56мм НЛ)", "магазину А28 (5.56мм НЛ)", "магазин А28 (5.56мм НЛ)", "магазином А28 (5.56мм НЛ)", "магазине А28 (5.56мм НЛ)")
 	icon_state = "a28_mag_nl"
+	item_state_inventory = "a28_mag_nl"
+	item_state_world = "a28_mag_nl_w"
+	overlay = "a28-mag-nl"
 	ammo_type = /obj/item/ammo_casing/a556/nonlethal
 
 /obj/item/ammo_box/magazine/a74
@@ -577,7 +587,7 @@
 	origin_tech = "combat=3"
 	ammo_type = /obj/item/ammo_casing/drozd127
 	caliber = "12.7mm"
-	max_ammo = 12
+	max_ammo = 20
 	multiple_sprites = TWO_STATES
 	overlay = "drozd-mag"
 

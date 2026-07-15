@@ -33,8 +33,18 @@
 
 	return TRUE
 
-// be wary client might disappear here mid execution because byond
+// native Byond login is tricky for new clients, so we don use it, use LateLogin instead
 /mob/Login()
+	SHOULD_NOT_OVERRIDE(TRUE)
+
+	..()
+
+	if (client.is_initialized)
+		LateLogin()
+
+/mob/proc/LateLogin()
+	SHOULD_CALL_PARENT(TRUE)
+
 	player_list |= src
 
 	if(client.holder)
@@ -48,6 +58,8 @@
 	client.images = null //remove the images such as AIs being unable to see runes
 	client.screen = list() //remove hud items just in case
 
+	closeToolTip(src) //dismiss any stuck tooltip on mob transition
+
 	create_mob_hud()
 
 	client.set_main_screen_plane_masters()
@@ -55,8 +67,6 @@
 	client.pixel_x = 0
 	client.pixel_y = 0
 	next_move = 1
-
-	..()
 
 	SEND_SIGNAL(src, COMSIG_LOGIN)
 	logout_reason = LOGOUT_UNKNOWN

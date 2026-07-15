@@ -789,7 +789,9 @@
 	},
 /area/asteroid/research_outpost/hallway)
 "bU" = (
-/obj/machinery/vending/cola,
+/obj/machinery/vending/cola{
+	seller_account_number = "%cargo_account%"
+	},
 /obj/effect/decal/turf_decal/metal{
 	dir = 1;
 	icon_state = "spline_plain"
@@ -837,6 +839,7 @@
 	dir = 8
 	},
 /obj/machinery/vending/hydroseeds{
+	seller_account_number = "%cargo_account%";
 	slogan_delay = 700
 	},
 /turf/simulated/floor{
@@ -1596,12 +1599,7 @@
 /area/asteroid/research_outpost/anomaly)
 "du" = (
 /obj/machinery/artifact_harvester,
-/obj/effect/decal/turf_decal/alpha/gray{
-	icon_state = "bot"
-	},
-/turf/simulated/floor{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/bluegrid,
 /area/asteroid/research_outpost/harvesting)
 "dv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -2057,6 +2055,16 @@
 	pixel_y = 3
 	},
 /obj/item/weapon/xenoarch_utilizer,
+/obj/item/weapon/particles_battery{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/weapon/particles_battery{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/weapon/particles_battery,
+/obj/item/weapon/particles_battery,
 /turf/simulated/floor{
 	icon_state = "vaultfull"
 	},
@@ -2596,17 +2604,9 @@
 	},
 /area/asteroid/research_outpost/hallway)
 "fi" = (
-/obj/structure/table,
-/obj/item/weapon/particles_battery{
-	pixel_x = -3;
-	pixel_y = 3
+/obj/machinery/atmospherics/components/unary/vent_pump{
+	dir = 1
 	},
-/obj/item/weapon/particles_battery{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/weapon/particles_battery,
-/obj/item/weapon/particles_battery,
 /turf/simulated/floor{
 	icon_state = "vaultfull"
 	},
@@ -2823,7 +2823,9 @@
 	},
 /area/asteroid/mine/unexplored/safe)
 "fG" = (
-/obj/machinery/vending/snack,
+/obj/machinery/vending/snack{
+	seller_account_number = "%cargo_account%"
+	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
@@ -3077,7 +3079,9 @@
 /turf/simulated/mineral,
 /area/asteroid/mine/unexplored/safe)
 "gj" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/vending/coffee{
+	seller_account_number = "%cargo_account%"
+	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
@@ -3237,7 +3241,6 @@
 "gG" = (
 /obj/structure/alien/weeds,
 /obj/structure/table,
-/obj/item/weapon/storage/box/cups,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/airless{
 	icon_state = "dark"
@@ -3541,7 +3544,7 @@
 "hv" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/external{
-	dock_tag = "sci_dock";
+	dock_tag = "mining_shuttle";
 	locked = 1;
 	name = "Research Outpost Dock Airlock";
 	req_access = list(65)
@@ -3713,11 +3716,6 @@
 /turf/simulated/floor,
 /area/asteroid/research_outpost/entry)
 "hM" = (
-/obj/machinery/driver_button{
-	id = "research";
-	pixel_x = 6;
-	pixel_y = -26
-	},
 /obj/machinery/conveyor{
 	dir = 4;
 	id = "archgunc"
@@ -4768,8 +4766,15 @@
 /turf/simulated/floor/plating,
 /area/asteroid/research_outpost/maint)
 "jF" = (
-/obj/machinery/artifact_scanpad,
-/turf/simulated/floor/bluegrid,
+/obj/effect/decal/turf_decal/alpha/gray{
+	icon_state = "bot"
+	},
+/obj/structure/stool/bed/chair/metal{
+	dir = 8
+	},
+/turf/simulated/floor{
+	icon_state = "dark"
+	},
 /area/asteroid/research_outpost/harvesting)
 "jG" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
@@ -4830,8 +4835,8 @@
 	icon_state = "delivery"
 	},
 /turf/simulated/floor/airless{
-	icon_state = "darkyellow";
-	dir = 6
+	dir = 6;
+	icon_state = "darkyellow"
 	},
 /area/asteroid/mine/abandoned)
 "jS" = (
@@ -5653,18 +5658,7 @@
 /turf/simulated/floor,
 /area/asteroid/research_outpost/iso1)
 "lo" = (
-/obj/structure/table,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
-	dir = 4
-	},
-/obj/machinery/door_control{
-	id = "riso3";
-	name = "Door Bolt Control";
-	pixel_x = -25;
-	specialfunctions = 4
-	},
-/obj/item/weapon/folder/purple,
-/obj/item/device/analyzer,
+/obj/machinery/atmospherics/components/binary/valve,
 /turf/simulated/floor,
 /area/asteroid/research_outpost/iso2)
 "lp" = (
@@ -5674,18 +5668,18 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
+	dir = 5
 	},
 /turf/simulated/floor,
 /area/asteroid/research_outpost/iso2)
 "lq" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 10
+	},
 /obj/structure/cable{
 	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 6
+	d2 = 8;
+	icon_state = "1-8"
 	},
 /turf/simulated/floor,
 /area/asteroid/research_outpost/iso2)
@@ -5740,17 +5734,17 @@
 	},
 /area/asteroid/research_outpost/outpost_misc_lab)
 "lw" = (
-/obj/structure/rack,
-/obj/item/clothing/suit/space/globose/science,
-/obj/item/clothing/mask/breath,
-/obj/item/clothing/head/helmet/space/globose/science,
-/obj/item/clothing/shoes/magboots,
-/obj/item/weapon/storage/firstaid/small_firstaid_kit/space,
 /obj/machinery/light/smart{
 	dir = 1
 	},
 /obj/effect/decal/turf_decal/alpha/yellow{
-	icon_state = "delivery"
+	icon_state = "bot"
+	},
+/obj/effect/decal/turf_decal/alpha/yellow{
+	icon_state = "bot"
+	},
+/obj/machinery/suit_storage_unit/globose/science/xenoarchaeologist{
+	filled = 1
 	},
 /turf/simulated/floor,
 /area/asteroid/research_outpost/gearstore)
@@ -5767,8 +5761,8 @@
 /obj/structure/rack,
 /obj/item/clothing/mask/gas/coloured,
 /turf/simulated/floor/airless{
-	icon_state = "darkyellow";
-	dir = 4
+	dir = 4;
+	icon_state = "darkyellow"
 	},
 /area/asteroid/mine/abandoned)
 "lC" = (
@@ -5920,9 +5914,6 @@
 	},
 /area/asteroid/research_outpost/outpost_misc_lab)
 "lT" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 4
-	},
 /obj/machinery/computer/security/telescreen{
 	desc = "Used for watching the isolation room cameras.";
 	dir = 4;
@@ -5930,6 +5921,10 @@
 	name = "Isolation Room Telescreen";
 	network = list("Anomaly Isolation");
 	pixel_x = -32
+	},
+/obj/machinery/atmospherics/components/unary/portables_connector,
+/obj/effect/decal/turf_decal/alpha/yellow{
+	icon_state = "bot"
 	},
 /turf/simulated/floor,
 /area/asteroid/research_outpost/iso2)
@@ -5941,7 +5936,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
+	dir = 5
 	},
 /turf/simulated/floor,
 /area/asteroid/research_outpost/iso2)
@@ -5969,9 +5964,8 @@
 	locked = 0;
 	pixel_y = 24
 	},
-/obj/machinery/atmospherics/components/unary/portables_connector,
-/obj/effect/decal/turf_decal/alpha/yellow{
-	icon_state = "bot"
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
+	dir = 8
 	},
 /turf/simulated/floor,
 /area/asteroid/research_outpost/iso2)
@@ -6014,14 +6008,11 @@
 	},
 /area/asteroid/research_outpost/longtermstorage)
 "mc" = (
-/obj/structure/rack,
-/obj/item/clothing/suit/space/globose/science,
-/obj/item/clothing/mask/breath,
-/obj/item/clothing/shoes/magboots,
-/obj/item/clothing/head/helmet/space/globose/science,
-/obj/item/weapon/storage/firstaid/small_firstaid_kit/space,
 /obj/effect/decal/turf_decal/alpha/yellow{
-	icon_state = "delivery"
+	icon_state = "bot"
+	},
+/obj/machinery/suit_storage_unit/science{
+	filled = 1
 	},
 /turf/simulated/floor,
 /area/asteroid/research_outpost/gearstore)
@@ -6046,8 +6037,8 @@
 /obj/structure/alien/weeds,
 /obj/structure/stool/bed/chair/metal/black,
 /turf/simulated/floor/airless{
-	icon_state = "darkyellow";
-	dir = 1
+	dir = 1;
+	icon_state = "darkyellow"
 	},
 /area/asteroid/mine/abandoned)
 "mg" = (
@@ -6092,18 +6083,23 @@
 /turf/simulated/floor,
 /area/asteroid/research_outpost/gearstore)
 "ms" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
 	},
 /turf/simulated/floor,
 /area/asteroid/research_outpost/gearstore)
 "mt" = (
-/obj/structure/closet/secure_closet/xenoarchaeologist_tools,
+/obj/machinery/light/smart{
+	dir = 1
+	},
+/obj/machinery/suspension_gen{
+	dir = 4
+	},
 /obj/effect/decal/turf_decal/alpha/yellow{
-	icon_state = "bot"
+	icon_state = "delivery"
 	},
 /turf/simulated/floor,
 /area/asteroid/research_outpost/gearstore)
@@ -6215,11 +6211,12 @@
 /turf/simulated/floor,
 /area/asteroid/research_outpost/iso1)
 "mI" = (
-/obj/structure/table,
-/obj/item/device/suit_cooling_unit,
-/obj/item/weapon/storage/toolbox/mechanical,
-/obj/item/inflatable/door,
-/obj/item/inflatable,
+/obj/machinery/floodlight{
+	dir = 4
+	},
+/obj/effect/decal/turf_decal/alpha/yellow{
+	icon_state = "delivery"
+	},
 /turf/simulated/floor,
 /area/asteroid/research_outpost/gearstore)
 "mJ" = (
@@ -6300,29 +6297,42 @@
 /turf/simulated/floor,
 /area/asteroid/research_outpost/harvesting)
 "mP" = (
-/obj/machinery/atmospherics/components/binary/valve,
 /obj/machinery/light/smart{
 	dir = 4
 	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
+	dir = 8
+	},
+/obj/structure/table,
+/obj/item/weapon/folder/purple,
+/obj/item/device/analyzer,
 /turf/simulated/floor,
 /area/asteroid/research_outpost/iso2)
 "mQ" = (
-/obj/structure/table,
-/turf/simulated/floor,
-/area/asteroid/research_outpost/iso2)
-"mR" = (
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
 /obj/machinery/atmospherics/pipe/manifold/visible{
-	dir = 4
+	dir = 8
 	},
 /obj/machinery/power/apc{
 	custom_smartlight_preset = "RnD";
-	dir = 4;
-	name = "RnD right APC";
-	pixel_x = 27
+	dir = 8;
+	name = "RnD left APC";
+	pixel_x = -27
+	},
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/turf/simulated/floor,
+/area/asteroid/research_outpost/iso2)
+"mR" = (
+/obj/structure/table,
+/obj/machinery/computer/security/telescreen{
+	desc = "Used for watching the isolation room cameras.";
+	dir = 8;
+	layer = 4;
+	name = "Isolation Room Telescreen";
+	network = list("Anomaly Isolation");
+	pixel_x = 32
 	},
 /turf/simulated/floor,
 /area/asteroid/research_outpost/iso2)
@@ -6384,7 +6394,10 @@
 	},
 /area/asteroid/research_outpost/longtermstorage)
 "mX" = (
-/obj/machinery/suspension_gen,
+/obj/machinery/light/smart,
+/obj/machinery/suspension_gen{
+	dir = 4
+	},
 /obj/effect/decal/turf_decal/alpha/yellow{
 	icon_state = "delivery"
 	},
@@ -6407,8 +6420,8 @@
 /obj/effect/decal/remains/xeno,
 /obj/effect/decal/turf_decal/set_damaged,
 /turf/simulated/floor/airless{
-	icon_state = "darkyellow";
-	dir = 10
+	dir = 10;
+	icon_state = "darkyellow"
 	},
 /area/asteroid/mine/abandoned)
 "nd" = (
@@ -6471,11 +6484,11 @@
 	locked = 0;
 	pixel_y = 24
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 10
-	},
 /obj/effect/decal/turf_decal{
 	icon_state = "warn"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 4
 	},
 /turf/simulated/floor,
 /area/asteroid/research_outpost/harvesting)
@@ -6493,6 +6506,9 @@
 	},
 /obj/effect/decal/turf_decal{
 	icon_state = "warn"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 10
 	},
 /turf/simulated/floor,
 /area/asteroid/research_outpost/harvesting)
@@ -6704,8 +6720,8 @@
 /turf/environment/space,
 /area/asteroid/mine/explored)
 "nK" = (
-/obj/effect/decal/turf_decal/alpha/yellow{
-	icon_state = "bot"
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
 	},
 /turf/simulated/floor,
 /area/asteroid/research_outpost/gearstore)
@@ -6884,7 +6900,6 @@
 /turf/simulated/floor,
 /area/asteroid/research_outpost/iso2)
 "oh" = (
-/obj/machinery/atmospherics/components/binary/pump,
 /obj/machinery/ignition_switch{
 	id = "isolationsparker";
 	pixel_x = 22;
@@ -6892,6 +6907,12 @@
 	},
 /obj/effect/decal/turf_decal{
 	icon_state = "warn"
+	},
+/obj/structure/stool/bed/chair/metal{
+	dir = 1
+	},
+/obj/machinery/artifact_analyser{
+	pixel_y = 32
 	},
 /turf/simulated/floor,
 /area/asteroid/research_outpost/iso2)
@@ -7138,6 +7159,9 @@
 /obj/effect/decal/turf_decal{
 	icon_state = "warn"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 4
+	},
 /turf/simulated/floor,
 /area/asteroid/research_outpost/harvesting)
 "oM" = (
@@ -7157,22 +7181,15 @@
 	},
 /area/asteroid/mine/maintenance)
 "oO" = (
-/obj/machinery/artifact_analyser{
-	pixel_y = 32
-	},
-/obj/structure/stool/bed/chair/metal{
-	dir = 1
-	},
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the isolation room cameras.";
-	dir = 4;
-	layer = 4;
-	name = "Isolation Room Telescreen";
-	network = list("Anomaly Isolation");
-	pixel_x = -32
-	},
 /obj/effect/decal/turf_decal{
 	icon_state = "warn"
+	},
+/obj/machinery/atmospherics/components/binary/pump,
+/obj/machinery/door_control{
+	id = "riso3";
+	name = "Door Bolt Control";
+	pixel_x = -25;
+	specialfunctions = 4
 	},
 /turf/simulated/floor,
 /area/asteroid/research_outpost/iso2)
@@ -7281,8 +7298,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/airless{
-	icon_state = "darkyellowfull";
-	dir = 1
+	dir = 1;
+	icon_state = "darkyellowfull"
 	},
 /area/asteroid/mine/abandoned)
 "pb" = (
@@ -7295,9 +7312,11 @@
 	},
 /area/asteroid/mine/explored)
 "pc" = (
-/obj/machinery/floodlight,
 /obj/effect/decal/turf_decal/alpha/yellow{
-	icon_state = "delivery"
+	icon_state = "bot"
+	},
+/obj/machinery/suit_storage_unit/globose/science/xenoarchaeologist{
+	filled = 1
 	},
 /turf/simulated/floor,
 /area/asteroid/research_outpost/gearstore)
@@ -7450,21 +7469,14 @@
 /turf/simulated/floor/carpet,
 /area/asteroid/mine/living_quarters)
 "ps" = (
-/obj/machinery/atmospherics/components/unary/vent_pump{
-	dir = 1
-	},
-/obj/structure/stool/bed/chair/metal{
-	dir = 4
-	},
 /obj/machinery/light/smart{
 	dir = 8
 	},
 /obj/effect/decal/turf_decal/alpha/gray{
 	icon_state = "bot"
 	},
-/turf/simulated/floor{
-	icon_state = "dark"
-	},
+/obj/machinery/artifact_scanpad,
+/turf/simulated/floor/bluegrid,
 /area/asteroid/research_outpost/harvesting)
 "pt" = (
 /obj/structure/cable{
@@ -7528,16 +7540,16 @@
 /obj/item/weapon/table_parts,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/airless{
-	icon_state = "darkyellow";
-	dir = 9
+	dir = 9;
+	icon_state = "darkyellow"
 	},
 /area/asteroid/mine/abandoned)
 "pA" = (
 /obj/effect/decal/turf_decal/set_burned,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/airless{
-	icon_state = "darkpurple";
-	dir = 4
+	dir = 4;
+	icon_state = "darkpurple"
 	},
 /area/asteroid/mine/abandoned)
 "pB" = (
@@ -7553,8 +7565,8 @@
 	icon_state = "small"
 	},
 /turf/simulated/floor/airless{
-	icon_state = "darkyellow";
-	dir = 4
+	dir = 4;
+	icon_state = "darkyellow"
 	},
 /area/asteroid/mine/abandoned)
 "pC" = (
@@ -7593,12 +7605,28 @@
 	},
 /area/asteroid/mine/explored)
 "pI" = (
-/obj/machinery/light/smart{
-	dir = 8
+/obj/structure/table,
+/obj/item/weapon/storage/toolbox/mechanical{
+	pixel_x = -10;
+	pixel_y = 10
 	},
-/obj/structure/closet/secure_closet/xenoarchaeologist_tools,
-/obj/effect/decal/turf_decal/alpha/yellow{
-	icon_state = "bot"
+/obj/item/weapon/storage/toolbox/mechanical{
+	pixel_x = 10;
+	pixel_y = 10
+	},
+/obj/item/device/suit_cooling_unit{
+	pixel_x = 10
+	},
+/obj/item/device/suit_cooling_unit{
+	pixel_x = -10
+	},
+/obj/item/weapon/storage/briefcase/inflatable{
+	pixel_x = -10;
+	pixel_y = -5
+	},
+/obj/item/weapon/storage/briefcase/inflatable{
+	pixel_x = 10;
+	pixel_y = -5
 	},
 /turf/simulated/floor,
 /area/asteroid/research_outpost/gearstore)
@@ -7658,8 +7686,8 @@
 	icon_state = "delivery"
 	},
 /turf/simulated/floor/airless{
-	icon_state = "darkyellow";
-	dir = 4
+	dir = 4;
+	icon_state = "darkyellow"
 	},
 /area/asteroid/mine/abandoned)
 "pQ" = (
@@ -7741,10 +7769,10 @@
 	},
 /area/asteroid/research_outpost/gearstore)
 "qa" = (
-/obj/machinery/suspension_gen,
-/obj/machinery/light/smart,
+/obj/structure/closet/secure_closet/xenoarchaeologist_tools,
+/obj/item/weapon/storage/firstaid/small_firstaid_kit/space,
 /obj/effect/decal/turf_decal/alpha/yellow{
-	icon_state = "delivery"
+	icon_state = "bot"
 	},
 /turf/simulated/floor,
 /area/asteroid/research_outpost/gearstore)
@@ -8063,8 +8091,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/airless{
-	icon_state = "darkpurplefull";
-	dir = 1
+	dir = 1;
+	icon_state = "darkpurplefull"
 	},
 /area/asteroid/mine/abandoned)
 "qS" = (
@@ -8220,16 +8248,16 @@
 /obj/effect/decal/cleanable/cobweb,
 /obj/item/weapon/storage/toolbox/electrical,
 /turf/simulated/floor/airless{
-	icon_state = "darkpurple";
-	dir = 9
+	dir = 9;
+	icon_state = "darkpurple"
 	},
 /area/asteroid/mine/abandoned)
 "ri" = (
 /obj/machinery/floodlight,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/airless{
-	icon_state = "darkpurple";
-	dir = 1
+	dir = 1;
+	icon_state = "darkpurple"
 	},
 /area/asteroid/mine/abandoned)
 "rj" = (
@@ -8252,8 +8280,8 @@
 "rl" = (
 /obj/structure/alien/weeds,
 /turf/simulated/floor/airless{
-	icon_state = "darkpurplechecker";
-	dir = 8
+	dir = 8;
+	icon_state = "darkpurplechecker"
 	},
 /area/asteroid/mine/abandoned)
 "rm" = (
@@ -8261,8 +8289,8 @@
 	icon_state = "weeds2"
 	},
 /turf/simulated/floor/airless{
-	icon_state = "darkpurplechecker";
-	dir = 8
+	dir = 8;
+	icon_state = "darkpurplechecker"
 	},
 /area/asteroid/mine/abandoned)
 "rn" = (
@@ -8328,8 +8356,8 @@
 /obj/item/clothing/gloves/latex,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/airless{
-	icon_state = "darkpurple";
-	dir = 4
+	dir = 4;
+	icon_state = "darkpurple"
 	},
 /area/asteroid/mine/abandoned)
 "rx" = (
@@ -8349,9 +8377,12 @@
 /area/asteroid/mine/unexplored)
 "rA" = (
 /obj/structure/alien/weeds/node,
+/obj/machinery/suit_storage_unit/syndicate_unit/abandoned{
+	filled = 1
+	},
 /turf/simulated/floor/airless{
-	icon_state = "darkpurple";
-	dir = 10
+	dir = 10;
+	icon_state = "darkpurple"
 	},
 /area/asteroid/mine/abandoned)
 "rB" = (
@@ -8377,8 +8408,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/weapon/disk/research_points/rare,
 /turf/simulated/floor/airless{
-	icon_state = "darkpurple";
-	dir = 6
+	dir = 6;
+	icon_state = "darkpurple"
 	},
 /area/asteroid/mine/abandoned)
 "rF" = (
@@ -8432,8 +8463,8 @@
 	amount = 50
 	},
 /turf/simulated/floor/airless{
-	icon_state = "darkyellow";
-	dir = 5
+	dir = 5;
+	icon_state = "darkyellow"
 	},
 /area/asteroid/mine/abandoned)
 "rM" = (
@@ -8829,15 +8860,8 @@
 /turf/simulated/floor/plating,
 /area/asteroid/mine/dwarf)
 "sW" = (
-/obj/structure/rack,
-/obj/item/clothing/mask/breath,
-/obj/item/clothing/suit/space/rig/wizard{
-	armor = list("melee"=40,"bullet"=5,"laser"=10,"energy"=5,"bomb"=55,"bio"=100,"rad"=20);
-	desc = "Old bizarre gem-encrusted suit that radiates magical energies."
-	},
-/obj/item/clothing/head/helmet/space/rig/wizard{
-	armor = list("melee"=40,"bullet"=5,"laser"=10,"energy"=5,"bomb"=55,"bio"=100,"rad"=20);
-	desc = "Old bizarre gem-encrusted helmet that radiates magical energies."
+/obj/machinery/suit_storage_unit/wizard{
+	filled = 1
 	},
 /turf/simulated/floor/plating,
 /area/asteroid/mine/dwarf)
@@ -9677,14 +9701,18 @@
 	},
 /area/asteroid/mine/living_quarters)
 "va" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/vending/cigarette{
+	seller_account_number = "%cargo_account%"
+	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor{
 	icon_state = "bar"
 	},
 /area/asteroid/mine/living_quarters)
 "vb" = (
-/obj/machinery/vending/snack,
+/obj/machinery/vending/snack{
+	seller_account_number = "%cargo_account%"
+	},
 /turf/simulated/floor{
 	icon_state = "bar"
 	},
@@ -11120,8 +11148,8 @@
 	},
 /obj/machinery/space_heater,
 /turf/simulated/floor/airless{
-	icon_state = "darkyellow";
-	dir = 4
+	dir = 4;
+	icon_state = "darkyellow"
 	},
 /area/asteroid/mine/abandoned)
 "ym" = (
@@ -11208,8 +11236,8 @@
 "yD" = (
 /obj/effect/decal/turf_decal/set_damaged,
 /turf/simulated/floor/airless{
-	icon_state = "darkpurplechecker";
-	dir = 8
+	dir = 8;
+	icon_state = "darkpurplechecker"
 	},
 /area/asteroid/mine/abandoned)
 "yM" = (
@@ -11431,9 +11459,6 @@
 /obj/item/device/suit_cooling_unit{
 	pixel_y = -4
 	},
-/obj/item/clothing/shoes/magboots,
-/obj/item/clothing/shoes/magboots,
-/obj/item/clothing/shoes/magboots,
 /obj/structure/cable,
 /obj/effect/decal/turf_decal/alpha/yellow{
 	icon_state = "bot"
@@ -11446,20 +11471,15 @@
 /turf/simulated/floor,
 /area/asteroid/mine/eva)
 "zp" = (
-/obj/structure/rack,
-/obj/item/clothing/suit/space/globose/mining,
-/obj/item/clothing/mask/breath,
-/obj/item/clothing/head/helmet/space/globose/mining,
 /obj/effect/decal/turf_decal/alpha/yellow{
 	icon_state = "delivery"
+	},
+/obj/machinery/suit_storage_unit/globose/mining{
+	filled = 1
 	},
 /turf/simulated/floor,
 /area/asteroid/mine/eva)
 "zq" = (
-/obj/structure/rack,
-/obj/item/clothing/suit/space/globose/mining,
-/obj/item/clothing/mask/breath,
-/obj/item/clothing/head/helmet/space/globose/mining,
 /obj/machinery/alarm{
 	dir = 1;
 	locked = 0;
@@ -11467,6 +11487,9 @@
 	},
 /obj/effect/decal/turf_decal/alpha/yellow{
 	icon_state = "delivery"
+	},
+/obj/machinery/suit_storage_unit/globose/mining{
+	filled = 1
 	},
 /turf/simulated/floor,
 /area/asteroid/mine/eva)
@@ -11902,7 +11925,7 @@
 /area/asteroid/research_outpost/hallway)
 "At" = (
 /obj/machinery/door/airlock/external{
-	dock_tag = "mine_dock";
+	dock_tag = "mining_shuttle";
 	locked = 1;
 	name = "Mining Shuttle Airlock";
 	req_access = list(48)
@@ -12214,8 +12237,8 @@
 /obj/structure/table,
 /obj/item/weapon/storage/belt/utility,
 /turf/simulated/floor/airless{
-	icon_state = "darkyellow";
-	dir = 9
+	dir = 9;
+	icon_state = "darkyellow"
 	},
 /area/asteroid/mine/abandoned)
 "Bu" = (
@@ -12227,18 +12250,14 @@
 /turf/simulated/floor,
 /area/asteroid/mine/production)
 "Bw" = (
-/obj/structure/rack,
-/obj/item/clothing/suit/space/globose/science,
-/obj/item/clothing/mask/breath,
-/obj/item/clothing/shoes/magboots,
-/obj/item/clothing/head/helmet/space/globose/science,
-/obj/item/weapon/storage/firstaid/small_firstaid_kit/space,
 /obj/item/device/radio/intercom{
 	name = "Asteroid Intercom (General)";
 	pixel_y = 24
 	},
+/obj/structure/closet/secure_closet/xenoarchaeologist_tools,
+/obj/item/weapon/storage/firstaid/small_firstaid_kit/space,
 /obj/effect/decal/turf_decal/alpha/yellow{
-	icon_state = "delivery"
+	icon_state = "bot"
 	},
 /turf/simulated/floor,
 /area/asteroid/research_outpost/gearstore)
@@ -12339,11 +12358,11 @@
 /area/asteroid/mine/production)
 "Cg" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/window/fulltile/reinforced{
 	grilled = 1;
 	icon_state = "gr_window_reinforced"
 	},
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plating,
 /area/asteroid/research_outpost/iso2)
 "Ch" = (
@@ -12385,8 +12404,8 @@
 "CQ" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/airless{
-	icon_state = "darkpurple";
-	dir = 4
+	dir = 4;
+	icon_state = "darkpurple"
 	},
 /area/asteroid/mine/abandoned)
 "Db" = (
@@ -12462,11 +12481,10 @@
 /turf/simulated/floor/engine,
 /area/asteroid/research_outpost/longtermstorage)
 "Dh" = (
-/obj/structure/rack,
-/obj/item/clothing/shoes/magboots,
-/obj/item/clothing/suit/space/rig/science,
-/obj/item/clothing/mask/breath,
-/obj/item/clothing/head/helmet/space/rig/science,
+/obj/machinery/suit_storage_unit/globose/science/xenoarchaeologist{
+	filled = 1
+	},
+/obj/machinery/light/smart,
 /obj/effect/decal/turf_decal/alpha/yellow{
 	icon_state = "bot"
 	},
@@ -12491,8 +12509,8 @@
 	},
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/airless{
-	icon_state = "darkyellow";
-	dir = 4
+	dir = 4;
+	icon_state = "darkyellow"
 	},
 /area/asteroid/mine/abandoned)
 "DT" = (
@@ -12584,8 +12602,8 @@
 	pixel_y = 9
 	},
 /turf/simulated/floor/airless{
-	icon_state = "darkyellow";
-	dir = 5
+	dir = 5;
+	icon_state = "darkyellow"
 	},
 /area/asteroid/mine/abandoned)
 "ES" = (
@@ -12760,8 +12778,8 @@
 	},
 /obj/structure/ore_box,
 /turf/simulated/floor/airless{
-	icon_state = "darkyellow";
-	dir = 4
+	dir = 4;
+	icon_state = "darkyellow"
 	},
 /area/asteroid/mine/abandoned)
 "GT" = (
@@ -12829,8 +12847,8 @@
 	},
 /obj/effect/spawner/mob_spawn/alien/queen,
 /turf/simulated/floor/airless{
-	icon_state = "darkpurple";
-	dir = 8
+	dir = 8;
+	icon_state = "darkpurple"
 	},
 /area/asteroid/mine/abandoned)
 "HA" = (
@@ -13041,8 +13059,8 @@
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/airless{
-	icon_state = "darkpurple";
-	dir = 8
+	dir = 8;
+	icon_state = "darkpurple"
 	},
 /area/asteroid/mine/abandoned)
 "Jm" = (
@@ -13067,8 +13085,8 @@
 	pixel_y = 4
 	},
 /turf/simulated/floor/airless{
-	icon_state = "darkyellow";
-	dir = 4
+	dir = 4;
+	icon_state = "darkyellow"
 	},
 /area/asteroid/mine/abandoned)
 "Kb" = (
@@ -13162,15 +13180,15 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/airless{
-	icon_state = "darkpurplechecker";
-	dir = 8
+	dir = 8;
+	icon_state = "darkpurplechecker"
 	},
 /area/asteroid/mine/abandoned)
 "KO" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/airless{
-	icon_state = "darkyellow";
-	dir = 1
+	dir = 1;
+	icon_state = "darkyellow"
 	},
 /area/asteroid/mine/abandoned)
 "KT" = (
@@ -13275,8 +13293,8 @@
 /obj/structure/table,
 /obj/item/weapon/crowbar/red,
 /turf/simulated/floor/airless{
-	icon_state = "darkyellow";
-	dir = 8
+	dir = 8;
+	icon_state = "darkyellow"
 	},
 /area/asteroid/mine/abandoned)
 "Lz" = (
@@ -13389,8 +13407,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/weapon/paper/crumpled,
 /turf/simulated/floor/airless{
-	icon_state = "darkyellow";
-	dir = 9
+	dir = 9;
+	icon_state = "darkyellow"
 	},
 /area/asteroid/mine/abandoned)
 "MW" = (
@@ -13607,8 +13625,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/weapon/reagent_containers/glass/beaker/sulphuric,
 /turf/simulated/floor/airless{
-	icon_state = "darkyellow";
-	dir = 10
+	dir = 10;
+	icon_state = "darkyellow"
 	},
 /area/asteroid/mine/abandoned)
 "Pb" = (
@@ -13665,8 +13683,8 @@
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/airless{
-	icon_state = "darkyellow";
-	dir = 8
+	dir = 8;
+	icon_state = "darkyellow"
 	},
 /area/asteroid/mine/abandoned)
 "Pr" = (
@@ -13721,8 +13739,8 @@
 "PY" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/airless{
-	icon_state = "darkpurple";
-	dir = 8
+	dir = 8;
+	icon_state = "darkpurple"
 	},
 /area/asteroid/mine/abandoned)
 "Qb" = (
@@ -13783,23 +13801,23 @@
 "QG" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/airless{
-	icon_state = "darkyellowcorners";
-	dir = 1
+	dir = 1;
+	icon_state = "darkyellowcorners"
 	},
 /area/asteroid/mine/abandoned)
 "QM" = (
 /obj/effect/decal/turf_decal/set_damaged,
 /turf/simulated/floor/airless{
-	icon_state = "darkyellow";
-	dir = 1
+	dir = 1;
+	icon_state = "darkyellow"
 	},
 /area/asteroid/mine/abandoned)
 "QP" = (
 /obj/effect/decal/turf_decal/set_burned,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/airless{
-	icon_state = "darkyellowfull";
-	dir = 1
+	dir = 1;
+	icon_state = "darkyellowfull"
 	},
 /area/asteroid/mine/abandoned)
 "Rb" = (
@@ -13927,8 +13945,8 @@
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/closet/crate/freezer,
 /turf/simulated/floor/airless{
-	icon_state = "darkpurple";
-	dir = 5
+	dir = 5;
+	icon_state = "darkpurple"
 	},
 /area/asteroid/mine/abandoned)
 "St" = (
@@ -14007,8 +14025,8 @@
 /obj/structure/alien/weeds,
 /obj/structure/closet/crate/trashcart,
 /turf/simulated/floor/airless{
-	icon_state = "darkyellow";
-	dir = 6
+	dir = 6;
+	icon_state = "darkyellow"
 	},
 /area/asteroid/mine/abandoned)
 "Tw" = (
@@ -14026,7 +14044,9 @@
 	},
 /area/asteroid/mine/abandoned)
 "Ub" = (
-/obj/machinery/vending/hydronutrients,
+/obj/machinery/vending/hydronutrients{
+	seller_account_number = "%cargo_account%"
+	},
 /turf/simulated/floor{
 	dir = 1;
 	icon_state = "greenfull"
@@ -14078,8 +14098,8 @@
 /obj/structure/alien/weeds,
 /obj/effect/decal/turf_decal/set_damaged,
 /turf/simulated/floor/airless{
-	icon_state = "darkyellow";
-	dir = 8
+	dir = 8;
+	icon_state = "darkyellow"
 	},
 /area/asteroid/mine/abandoned)
 "Ut" = (
@@ -14172,8 +14192,8 @@
 /area/asteroid/mine/production)
 "VA" = (
 /turf/simulated/floor/airless{
-	icon_state = "darkpurplefull";
-	dir = 1
+	dir = 1;
+	icon_state = "darkpurplefull"
 	},
 /area/asteroid/mine/abandoned)
 "VC" = (
@@ -14392,15 +14412,15 @@
 /obj/structure/table,
 /obj/item/weapon/storage/toolbox/mechanical,
 /turf/simulated/floor/airless{
-	icon_state = "darkyellow";
-	dir = 8
+	dir = 8;
+	icon_state = "darkyellow"
 	},
 /area/asteroid/mine/abandoned)
 "Xv" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/airless{
-	icon_state = "darkpurple";
-	dir = 1
+	dir = 1;
+	icon_state = "darkpurple"
 	},
 /area/asteroid/mine/abandoned)
 "Xx" = (
@@ -14416,8 +14436,8 @@
 "XA" = (
 /obj/effect/decal/turf_decal/set_burned,
 /turf/simulated/floor/airless{
-	icon_state = "darkyellow";
-	dir = 8
+	dir = 8;
+	icon_state = "darkyellow"
 	},
 /area/asteroid/mine/abandoned)
 "XC" = (
@@ -14535,7 +14555,9 @@
 /turf/simulated/floor,
 /area/asteroid/mine/production)
 "Yf" = (
-/obj/machinery/vending/eva/mining,
+/obj/machinery/vending/eva/mining{
+	seller_account_number = "%cargo_account%"
+	},
 /turf/simulated/floor{
 	icon_state = "dark"
 	},
@@ -14604,8 +14626,8 @@
 /obj/machinery/floodlight,
 /obj/effect/decal/turf_decal/set_burned,
 /turf/simulated/floor/airless{
-	icon_state = "darkpurple";
-	dir = 1
+	dir = 1;
+	icon_state = "darkpurple"
 	},
 /area/asteroid/mine/abandoned)
 "Zn" = (
@@ -51724,12 +51746,12 @@ Bb
 aW
 gV
 bL
-aa
-aa
-aa
-aa
-aa
-ar
+pD
+pD
+pD
+pD
+pD
+mp
 pU
 qq
 qD
@@ -51981,11 +52003,11 @@ Bc
 aW
 kS
 hp
-pD
-pD
-pD
-pD
-pD
+mt
+mI
+mc
+mI
+mX
 mp
 pV
 ql
@@ -52238,11 +52260,11 @@ Bb
 aW
 kb
 hp
-mI
-mt
-mt
-pI
-mX
+qa
+mr
+mr
+mr
+qa
 mp
 pW
 pG
@@ -52497,8 +52519,8 @@ kf
 hp
 Bw
 mq
+pI
 nP
-nK
 qa
 mp
 Dc
@@ -52756,7 +52778,7 @@ lw
 lE
 ms
 nK
-pc
+Dh
 hP
 pY
 qt
@@ -53009,10 +53031,10 @@ hL
 Kc
 Kc
 hp
-mc
+pc
 mr
 mw
-Dh
+mr
 pc
 hP
 pZ
@@ -59437,8 +59459,8 @@ lT
 lo
 mQ
 oO
-Sb
-Hg
+Cg
+Jg
 Mg
 pl
 lj
@@ -59951,8 +59973,8 @@ lX
 mP
 mR
 oh
-Cg
-Jg
+Sb
+Hg
 Og
 pl
 lj

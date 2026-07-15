@@ -50,7 +50,8 @@
 	/obj/item/clothing/head/wizard,                 /obj/item/clothing/head/collectable/wizard,
 	/obj/item/clothing/head/hardhat/yellow,         /obj/item/clothing/head/collectable/hardhat,
 	/obj/item/clothing/head/hardhat/white,          /obj/item/clothing/head/helmet/space/santahat,
-	/obj/item/clothing/head/collectable/paper,      /obj/item/clothing/head/soft)
+	/obj/item/clothing/head/collectable/paper,      /obj/item/clothing/head/soft,
+	/obj/item/clothing/head/western/cowboy)
 
 	var/image/body_icon
 	if(facehugger)
@@ -119,7 +120,7 @@
 		t_state = mouth.icon_state
 
 	var/skip = FALSE
-	if(!(t_state in icon_states(mouth.lefthand_file))) //oh, god, no! plz NO! not those icon_custom, icon_override, icon_graytide, icon_whatever9000namedifferent_icons_with_million_ifs...
+	if(!icon_exists(mouth.lefthand_file, t_state)) //oh, god, no! plz NO! not those icon_custom, icon_override, icon_graytide, icon_whatever9000namedifferent_icons_with_million_ifs...
 		t_state = "uni_item"
 		skip = TRUE
 

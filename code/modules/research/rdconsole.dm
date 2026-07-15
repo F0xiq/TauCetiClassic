@@ -89,7 +89,7 @@ ADD_TO_GLOBAL_LIST(/obj/machinery/computer/rdconsole, RDcomputer_list)
 	return return_name
 
 /obj/machinery/computer/rdconsole/proc/SyncRDevices() //Makes sure it is properly sync'ed up with the devices attached to it (if any).
-	for(var/obj/machinery/r_n_d/D in oview(3,src))
+	for(var/obj/machinery/r_n_d/D in orange(3,src))
 		if(D.linked_console != null || D.disabled || D.panel_open)
 			continue
 		if(istype(D, /obj/machinery/r_n_d/destructive_analyzer))
@@ -328,6 +328,7 @@ ADD_TO_GLOBAL_LIST(/obj/machinery/computer/rdconsole, RDcomputer_list)
 	SyncRDevices()
 	screen = "main"
 	nanomanager.update_uis(src)
+	playsound(src, 'sound/machines/connect_machines.ogg', VOL_EFFECTS_MASTER, vary = FALSE)
 
 /obj/machinery/computer/rdconsole/proc/sync_tech()
 	for(var/obj/machinery/r_n_d/server/S in rnd_server_list)
@@ -351,6 +352,7 @@ ADD_TO_GLOBAL_LIST(/obj/machinery/computer/rdconsole, RDcomputer_list)
 
 	screen = "main"
 	nanomanager.update_uis(src)
+	playsound(src, 'sound/machines/sync_network.ogg', VOL_EFFECTS_MASTER, vary = FALSE)
 
 /obj/machinery/computer/rdconsole/proc/get_protolathe_data()
 	var/list/protolathe_list = list(

@@ -10,6 +10,9 @@
 	var/weapon_type
 	var/weapon_name_simple
 
+/obj/effect/proc_holder/changeling/weapon/can_sting(mob/user, mob/target)
+	return world.time >= user.next_move && ..()
+
 /obj/effect/proc_holder/changeling/weapon/try_to_sting(mob/user, mob/target)
 	if(istype(user.get_active_hand(),weapon_type))
 		user.drop_from_inventory(user.get_active_hand()) // cuz changeling weapons are unremovable with standart procedure with canremove = 0, but we still need it
@@ -32,6 +35,7 @@
 		return FALSE
 	var/obj/item/W = new weapon_type(user)
 	user.put_in_active_hand(W)
+	user.SetNextMove(CLICK_CD_MELEE)
 	return W
 
 //Parent to space suits and armor.
@@ -256,7 +260,7 @@
 	icon = 'icons/mob/head.dmi'
 	icon_state = "lingspacehelmet"
 	desc = "A covering of pressure and temperature-resistant organic tissue with a glass-like chitin front."
-	flags = HEADCOVERSEYES | BLOCKHAIR | HEADCOVERSMOUTH | DROPDEL
+	flags = HEADCOVERSEYES | HEADCOVERSMOUTH | DROPDEL
 	canremove = 0
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	siemens_coefficient = 2 // fleeesh!
@@ -278,6 +282,13 @@
 	helmet_name_simple = "helmet"
 	recharge_slowdown = 0.25
 
+/obj/effect/proc_holder/changeling/suit/armor/atom_init()
+	. = ..()
+	if(SSholiday.holidays[EASTER])
+		button_icon_state = "easter"
+		chemical_cost = 5
+		genomecost = 0
+
 /obj/item/clothing/suit/armor/changeling
 	name = "chitinous mass"
 	desc = "A tough, hard covering of black chitin."
@@ -295,6 +306,8 @@
 
 /obj/item/clothing/suit/armor/changeling/atom_init()
 	. = ..()
+	if(SSholiday.holidays[EASTER])
+		icon_state = "lingeaster"
 	if(ismob(loc))
 		loc.visible_message("<span class='warning'>[loc.name]\'s flesh turns black, quickly transforming into a hard, chitinous mass!</span>", "<span class='warning'>We harden our flesh, creating a suit of armor!</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
 
@@ -303,9 +316,15 @@
 	desc = "A tough, hard covering of black chitin with transparent chitin in front."
 	icon = 'icons/mob/head.dmi'
 	icon_state = "lingarmorhelmet"
-	flags = HEADCOVERSEYES | BLOCKHAIR | DROPDEL
+	flags = HEADCOVERSEYES | DROPDEL
+	render_flags = parent_type::render_flags | HIDE_ALL_HAIR
 	pierce_protection = HEAD
 	canremove = 0
 	armor = list(melee = 70, bullet = 45, laser = 45, energy = 35, bomb = 25, bio = 2, rad = 0)
 	flags_inv = HIDEEARS
 	siemens_coefficient = 0.4
+
+/obj/item/clothing/head/helmet/changeling/atom_init()
+	. = ..()
+	if(SSholiday.holidays[EASTER])
+		icon_state = "lingeasterhelmet"

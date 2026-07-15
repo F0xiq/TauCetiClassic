@@ -71,7 +71,7 @@
 	var/BU = M.getFireLoss() > 50 	? 	"<b>[M.getFireLoss()]</b>" 		: M.getFireLoss()
 	var/BR = M.getBruteLoss() > 50 	? 	"<b>[M.getBruteLoss()]</b>" 	: M.getBruteLoss()
 
-	message += "<span class='notice'>Analyzing Results for [M]:<br>&emsp; Overall Status: [M.stat > 1 ? "fully disabled" : "[M.health - M.halloss]% functional"]</span><br>"
+	message += "<span class='notice'>Analyzing Results for [M]:<br>&emsp; Overall Status: [M.stat > 1 ? "fully disabled" : "[M.health - M.getHalLoss()]% functional"]</span><br>"
 	message += "&emsp; Key: <font color='#FFA500'>Electronics</font>/<font color='red'>Brute</font><br>"
 	message += "&emsp; Damage Specifics: <font color='#FFA500'>[BU]</font> - <font color='red'>[BR]</font><br>"
 	if(M.tod && M.stat == DEAD)
@@ -108,6 +108,28 @@
 				(BP.burn_dam > 0)	?	"<font color='#FFA500'>[BP.burn_dam]</font>"	:0)
 		else
 			message += "<span class='notice'>&emsp; Components are OK.</span><br>"
+
+		var/list/damaged_organs = list()
+		for(var/obj/item/organ/internal/IO in H.organs)
+			if(IO.damage > 0 || IO.status & ORGAN_DEAD)
+				damaged_organs += IO
+
+		message += "<span class='notice'>Internal Components:</span><br>"
+		if(length(damaged_organs) > 0)
+			for(var/obj/item/organ/internal/IO in damaged_organs)
+				var/status_text = ""
+				if(IO.status & ORGAN_DEAD)
+					status_text = "<font color='red'><b>DESTROYED</b></font>"
+				else if(IO.is_broken())
+					status_text = "<span class='warning'>BROKEN</span>"
+				else if(IO.is_bruised())
+					status_text = "<span class='warning'>BRUISED</span>"
+
+				message += "<span class='notice'>&emsp; [capitalize(IO.name)]: \
+					[IO.damage > 0 ? "<span class='warning'>[round(IO.damage, 0.1)]</span>" : 0] \
+					[status_text]</span><br>"
+		else
+			message += "<span class='notice'>&emsp; Internal components are OK.</span><br>"
 
 	message += "<span class='notice'>Operating Temperature: [M.bodytemperature-T0C]&deg;C ([M.bodytemperature*1.8-459.67]&deg;F)</span><br>"
 

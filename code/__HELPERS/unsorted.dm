@@ -162,7 +162,16 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 //Returns whether or not a player is a guest using their ckey as an input
 /proc/IsGuestKey(key)
-	return findtext(key, "Guest-", 1, 7) == 1
+	if(findtext(key, "Guest-", 1, 7) != 1)
+		return FALSE
+
+	var/i, ch, len = length(key)
+
+	for(i = 7, i <= len, ++i) //we know the first 6 chars are Guest-
+		ch = text2ascii(key, i)
+		if (ch < 48 || ch > 57) //0-9
+			return FALSE
+	return TRUE
 
 //Ensure the frequency is within bounds of what it should be sending/recieving at
 /proc/sanitize_frequency(f)
@@ -1102,6 +1111,19 @@ Turf and target are seperate in case you want to teleport some distance from a t
 			return "правая нога"
 		else
 			return zone
+// Genitive case organs for translation
+/proc/parse_zone_ru_genitive(zone)
+	switch(zone)
+		if(BP_L_ARM)
+			return "левой руки"
+		if(BP_R_ARM)
+			return "правой руки"
+		if(BP_L_LEG)
+			return "левой ноги"
+		if(BP_R_LEG)
+			return "правой ноги"
+		else
+			return zone
 
 /*
  Gets the turf this atom's *ICON* appears to inhabit
@@ -1205,10 +1227,10 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	return 0
 
 //check if mob is lying down on something we can operate him on.
-/proc/can_operate(mob/living/carbon/M)
+/proc/can_operate(mob/living/carbon/M, mob/user)
 	if(locate(/obj/machinery/optable, M.loc) && M.crawling)
 		return TRUE
-	if((M.buckled || M.incapacitated()) && prob(get_surg_chance(M.loc)))
+	if((M.buckled || M.incapacitated()) && user.mood_prob(get_surg_chance(M.loc)))
 		return TRUE
 	return FALSE
 
@@ -1223,7 +1245,7 @@ var/global/list/WALLITEMS = typecacheof(list(
 	/obj/machinery/computer/security/telescreen,
 	/obj/item/weapon/storage/secure/safe, /obj/machinery/door_timer, /obj/machinery/flasher, /obj/machinery/keycard_auth,
 	/obj/structure/mirror, /obj/structure/closet/fireaxecabinet, /obj/machinery/computer/security/telescreen/entertainment,
-	/obj/structure/sign/painting,
+	/obj/structure/picture_frame,
 ))
 /proc/gotwallitem(loc, dir)
 	for(var/obj/O in loc)

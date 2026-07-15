@@ -14,6 +14,7 @@
 /obj/item/clothing/accessory/atom_init()
 	. = ..()
 	inv_overlay = image("icon" = 'icons/obj/clothing/accessory_overlay.dmi', "icon_state" = icon_state)
+	inv_overlay.appearance_flags = RESET_COLOR // don't tint with the clothing's color (e.g. polychromic jumpsuits)
 
 //when user attached an accessory to S
 /obj/item/clothing/accessory/proc/on_attached(obj/item/clothing/S, mob/user, silent)
@@ -126,7 +127,7 @@
 						switch(target_zone)
 							if(BP_CHEST)
 								pulse_status = "pulse"
-								if(H.heart_status == HEART_NORMAL && M.oxyloss < 50)
+								if(H.heart_status == HEART_NORMAL && M.getOxyLoss() < 50)
 									pulse_strength = "hear a healthy"
 								else if(H.heart_status == HEART_FIBR)
 									pulse_strength = "hear an odd pulse"
@@ -365,7 +366,7 @@
 			var/obj/item/device/pda/pda = I
 			id_card = pda.id
 
-		if(access_security in id_card.access || emagged)
+		if((access_security in id_card.access) || emagged)
 			to_chat(user, "You imprint your ID details onto the badge.")
 			stored_name = id_card.registered_name
 			name = "holobadge ([stored_name])"

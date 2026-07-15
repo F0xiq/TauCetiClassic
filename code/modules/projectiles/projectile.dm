@@ -48,6 +48,7 @@
 	var/incendiary = 0
 	var/embed = 0 // whether or not the projectile can embed itself in the mob
 	var/impact_force = 0
+	var/close_range_impact_force = 0 // impact_force at a distance of two tiles, for shotguns projectiles
 
 	var/hitscan = 0	// whether the projectile should be hitscan
 	var/step_delay = 1	// the delay between iterations if not a hitscan projectile
@@ -183,6 +184,10 @@
 	var/turf/A_loc = isturf(A) ?  A : A.loc
 	bumped = TRUE
 	var/forcedodge = A.bullet_act(src, def_zone) // try to shot something
+
+	if(forcedodge == PROJECTILE_WEAKENED)
+		damage = damage / 2
+		forcedodge = PROJECTILE_FORCE_MISS
 
 	if(forcedodge == PROJECTILE_FORCE_MISS) // the bullet passes through a dense object!
 		forceMove(A_loc)
@@ -378,3 +383,15 @@ var/global/static/list/taser_projectiles = list(
 	/obj/item/projectile/beam/stun,
 	/obj/item/ammo_casing/energy/electrode
 )
+
+/obj/item/projectile/proc/get_full_impact_force(mob/living/target)
+	var/full_impact_force = impact_force
+	var/distance = get_dist(starting, target.loc)
+	if(distance <= 2)
+		full_impact_force += close_range_impact_force
+	if(isreplicator(target))
+		full_impact_force *= 0.1
+		if(damage_type == BRUTE)
+			damage += damage * 0.1
+	return full_impact_force
+

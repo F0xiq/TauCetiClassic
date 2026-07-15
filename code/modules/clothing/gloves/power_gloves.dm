@@ -6,7 +6,7 @@
 	name = "black gloves"
 	desc = "Heaped gloves with a bunch of all sorts of electronics."
 	icon_state = "marinad"
-	item_state = "marinad"
+	item_state = "bgloves"
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
 	cold_protection = ARMS
@@ -81,7 +81,7 @@
 			to_chat(user, "<span class='notice'>A [cell] is already attached to the [src].</span>")
 	else if(isscrewing(I))
 		if(cell)
-			cell.updateicon()
+			cell.update_icon()
 			to_chat(user, "<span class='notice'>You unscrew the [cell] away from the [src].</span>")
 			user.put_in_hands(cell)
 			turn_off()

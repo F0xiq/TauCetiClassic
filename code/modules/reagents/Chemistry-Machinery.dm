@@ -421,15 +421,22 @@
 			var/name = sanitize_safe(input(usr, "Name:","Name your bottle!", (reagents.total_volume ? reagents.get_master_reagent_name() : " ")) as text|null, MAX_NAME_LEN)
 			if(!name)
 				return FALSE
-			var/obj/item/weapon/reagent_containers/glass/bottle/P = new/obj/item/weapon/reagent_containers/glass/bottle(src.loc)
-			P.name = "[name] bottle"
-			P.icon_state = "bottle[bottlesprite]"
-			P.pixel_x = rand(-7, 7) //random position
-			P.pixel_y = rand(-7, 7)
-			reagents.trans_to(P, 30)
+			var/amount = 1
+			if(text2num(href_list["bulk"]))
+				amount = ceil(reagents.total_volume / 30)
+			for(var/i in 1 to amount)
+				var/obj/item/weapon/reagent_containers/glass/bottle/P = new(loc)
+				P.name = "[name] bottle"
+				P.icon_state = "bottle[bottlesprite]"
+				P.pixel_x = rand(-7, 7) //random position
+				P.pixel_y = rand(-7, 7)
+				reagents.trans_to(P, 30)
 		else
-			var/obj/item/weapon/reagent_containers/food/condiment/P = new/obj/item/weapon/reagent_containers/food/condiment(src.loc)
-			reagents.trans_to(P, 50)
+			if(text2num(href_list["bulk"]))
+				to_chat(usr, "Sorry! \"CondiMaster Neo\" DRM forbids mass production. Please contact our support to upgrade your license.")
+			else
+				var/obj/item/weapon/reagent_containers/food/condiment/P = new(loc)
+				reagents.trans_to(P, 50)
 
 	else if(href_list["changepill"])
 		var/dat = "<B>Choose pill colour</B><BR>"
@@ -488,11 +495,11 @@
 					dat += "<H1>[condi ? "Condiment" : "Chemical"] information:</H1>"
 					dat += "<B>Name:</B> [initial(R.name)]<BR><BR>"
 					dat += "<B>State:</B> "
-					if(initial(R.reagent_state) == 1)
+					if(initial(R.reagent_state) == SOLID)
 						dat += "Solid"
-					else if(initial(R.reagent_state) == 2)
+					else if(initial(R.reagent_state) == LIQUID)
 						dat += "Liquid"
-					else if(initial(R.reagent_state) == 3)
+					else if(initial(R.reagent_state) == GAS)
 						dat += "Gas"
 					else
 						dat += "Unknown"
@@ -671,7 +678,8 @@
 			dat += "<LI><A href='byond://?src=\ref[src];createpill=1'>Create pack</A> (10 units max)<BR>"
 		else
 			dat += "<LI><span class='disabled'>Create pack</span> (10 units max)<BR>"
-	dat += "<LI><A href='byond://?src=\ref[src];createbottle=1'>Create bottle</A> ([condi ? "50" : "30"] units max)"
+	dat += "<LI><A href='byond://?src=\ref[src];createbottle=1;bulk=0'>Create bottle</A> ([condi ? "50" : "30"] units max)"
+	dat += "<LI><A href='byond://?src=\ref[src];createbottle=1;bulk=1'>Create multiple bottles</A> (30 units max)"
 	dat += "</UL>"
 
 	var/datum/browser/popup = new(user, "chem_master", name, 470, 500)
@@ -707,8 +715,9 @@
 	component_parts += new /obj/item/weapon/reagent_containers/glass/beaker(null)
 
 /obj/machinery/chem_master/constructable/attackby(obj/item/B, mob/user, params)
+	. = ..()
 
-	if(default_deconstruction_screwdriver(user, "mixer0_nopower", "mixer0_", B))
+	if(default_deconstruction_screwdriver(user, "mixer0_nopower", "mixer0", B))
 		if(beaker)
 			beaker.loc = src.loc
 			beaker = null
@@ -728,27 +737,6 @@
 		else
 			to_chat(user, "<span class='warning'>You can't use the [src.name] while it's panel is opened.</span>")
 			return TRUE
-
-	if(istype(B, /obj/item/weapon/reagent_containers/glass))
-		if(src.beaker)
-			to_chat(user, "<span class='alert'>A beaker is already loaded into the machine.</span>")
-			return
-		src.beaker = B
-		user.drop_from_inventory(B, src)
-		to_chat(user, "You add the beaker to the machine!")
-		updateUsrDialog()
-		icon_state = "mixer1"
-
-	else if(!condi && istype(B, /obj/item/weapon/storage/pill_bottle))
-		if(src.loaded_pill_bottle)
-			to_chat(user, "<span class='alert'>A pill bottle is already loaded into the machine.</span>")
-			return
-		src.loaded_pill_bottle = B
-		user.drop_from_inventory(B, src)
-		to_chat(user, "You add the pill bottle into the dispenser slot!")
-		updateUsrDialog()
-
-	return
 
 ////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
